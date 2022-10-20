@@ -98,7 +98,6 @@ app.all('*',(req,res)=>{
     throw new ExpressError(`Page not found`,404)
 })
 
-//Basic error handler
 app.use((err,req,res,next)=>{
     const {statusCode=500} = err   //gave some default values
     if(!err.message) err.message = "Something went wrong"
