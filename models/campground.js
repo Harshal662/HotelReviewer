@@ -3,43 +3,43 @@ const mongoose = require('mongoose')
 const Review = require('./review')
 
 const imageSchema = new mongoose.Schema({
-    url:String,
-    filename:String
+    url: String,
+    filename: String
 })
 
-imageSchema.virtual('thumbnail').get(function() {                //This will behave as a attribute but it's value will be calculated each time and no need to save it in database
-    return this.url.replace('/upload','/upload/w_200')
+imageSchema.virtual('thumbnail').get(function () {                //This will behave as a attribute but it's value will be calculated each time and no need to save it in database
+    return this.url.replace('/upload', '/upload/w_200')
 })
 
 const opts = { toJSON: { virtuals: true } };  //as mongoose doest save virtuals in JSON format
 const campgroundSchema = new mongoose.Schema({
-    title:String,
-    price:Number,
-    location:String,
+    title: String,
+    price: Number,
+    location: String,
     geometry: {
-        type:{
-            type:String,
-            enum:['Point'],
-            required:true
+        type: {
+            type: String,
+            enum: ['Point'],
+            required: true
         },
-        coordinates:{
+        coordinates: {
             type: [Number],
-            required:true
+            required: true
         }
     },
-    description:String,
-    images:[imageSchema],
-    reviews:[               //foriegn key
+    description: String,
+    images: [imageSchema],
+    reviews: [               //foriegn key
         {
-            type:mongoose.Schema.Types.ObjectId,   
-            ref:'Review'    //Referensing Model
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'Review'    //Referensing Model
         }
     ],
-    author:{
-        type:mongoose.Schema.Types.ObjectId,
-        ref:'User'
+    author: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User'
     }
-},opts)
+}, opts)
 
 campgroundSchema.virtual('properties.popUpMarkup').get(function () {
     return `
@@ -48,14 +48,14 @@ campgroundSchema.virtual('properties.popUpMarkup').get(function () {
     <a href="/campground/${this._id}" class="btn btn-primary btn-sm">View</a>`
 });
 
-campgroundSchema.post('findOneAndDelete',async (doc)=>{     //mongoose middleware
-    if(doc){
+campgroundSchema.post('findOneAndDelete', async (doc) => {     //mongoose middleware
+    if (doc) {
         await Review.deleteMany({
-            _id : {$in:doc.reviews}
+            _id: { $in: doc.reviews }
         })
     }
 })
 
-const  Campground = mongoose.model('Campground',campgroundSchema)
+const Campground = mongoose.model('Campground', campgroundSchema)
 
 module.exports = Campground

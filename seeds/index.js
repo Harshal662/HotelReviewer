@@ -4,7 +4,8 @@ const Campground = require('../models/campground')  // .. -> go one step back an
 const cities = require('./cities')
 const { descriptors, places } = require('./seedHelper')
 
-mongoose.connect('mongodb://localhost:27017/YelpCamp')
+//mongoose.connect('mongodb://localhost:27017/YelpCamp')
+mongoose.connect('mongodb+srv://Harshal:Harshal@cluster0.jamvl8i.mongodb.net/?retryWrites=true&w=majority')
     .then(data => console.log("Database connected"))
     .catch(err => console.log("Database connection failed"))
 
@@ -27,12 +28,8 @@ const seedDb = async () => {
             description: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quo veritatis facilis illo laboriosam commodi vitae voluptate quidem ullam cupiditate? Debitis ullam unde quidem quis nihil iure earum. Obcaecati, minima accusantium?',
             images: [
                 {
-                    url: "https://res.cloudinary.com/mandar/image/upload/v1647432037/YelpCamp/lxwbv8f8it3z3u6jglec.jpg",
-                    filename: "YelpCamp/lxwbv8f8it3z3u6jglec"
-                },
-                { 
-                    url: "https://res.cloudinary.com/mandar/image/upload/v1647432042/YelpCamp/yd5yrtwk9wpgttc2qeje.jpg", 
-                    filename: "YelpCamp/yd5yrtwk9wpgttc2qeje"
+                    url: "https://res.cloudinary.com/dadofl3n9/image/upload/v1666765509/YelpCamp/h9vxoqkca451x6xgecoy.jpg",
+                    filename: "YelpCamp/h9vxoqkca451x6xgecoy"
                 }],
             price: random1000 / 10,
             author: '6215efde9cedc4e742d7b533'

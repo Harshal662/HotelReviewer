@@ -1,4 +1,4 @@
-if(process.env.NODE_ENV !== "production"){
+if (process.env.NODE_ENV !== "production") {
     require('dotenv').config();
 }
 
@@ -28,10 +28,10 @@ mongoose.connect(dbUrl)
 
 const app = express()
 
-app.engine('ejs',ejsMate)
-app.set('view engine','ejs')
-app.set('views',path.join(__dirname,'views'))
-app.use(express.urlencoded({extended:true}))
+app.engine('ejs', ejsMate)
+app.set('view engine', 'ejs')
+app.set('views', path.join(__dirname, 'views'))
+app.use(express.urlencoded({ extended: true }))
 app.use(methodOverride('_method'))
 app.use(express.static('public'))   //to add static file like css, html in template
 app.use(mongoSanitize())
@@ -40,22 +40,22 @@ app.use(mongoSanitize())
 const store = MongoStore.create({
     mongoUrl: dbUrl,
     secret,
-    touchAfter: 24*60*60
+    touchAfter: 24 * 60 * 60
 })
-store.on('error',e => {
-    console.log('Session Error!!! ',e)
+store.on('error', e => {
+    console.log('Session Error!!! ', e)
 })
 
 const sessionConfig = {
     store,
     name: 'YelpCampSession',
     secret,
-    resave:false,
-    saveUninitialized:true,
-    cookie:{
-        httpOnly:true,  //just a extra layer of security to avoid client site req / cross-plaform req
+    resave: false,
+    saveUninitialized: true,
+    cookie: {
+        httpOnly: true,  //just a extra layer of security to avoid client site req / cross-plaform req
         // secure: true,        //how extra security (sends no cookies for local host as well)
-        expires:Date.now() + (1000 * 60 * 60 * 24 * 7),     //expires after 1 week of creation
+        expires: Date.now() + (1000 * 60 * 60 * 24 * 7),     //expires after 1 week of creation
         maxAge: (1000 * 60 * 60 * 24 * 7)
     }
 }
@@ -70,7 +70,7 @@ passport.serializeUser(User.serializeUser())
 passport.deserializeUser(User.deserializeUser())
 
 //middleware for flashing all msg
-app.use((req,res,next)=>{
+app.use((req, res, next) => {
     res.locals.currentUser = req.user
     res.locals.success = req.flash('success')       //this will send success to all the rendering requests
     res.locals.warning = req.flash('warning')
@@ -78,34 +78,35 @@ app.use((req,res,next)=>{
     next()
 })
 
-app.use('/campground',campgroudRoutes)
-app.use('/campground/:id/reviews',reviewRoutes)
-app.use('/',userRoutes)
+app.use('/campground', campgroudRoutes)
+app.use('/campground/:id/reviews', reviewRoutes)
+app.use('/', userRoutes)
 
-app.get('/',(req,res) => {
+app.get('/', (req, res) => {
     res.render('home')
 })
 
-app.get('/fakeUser',async (req,res)=>{
-    const user = new User({email:'harshal.abak20@vit.edu',username:'Harshal'})
-    const newUser = await User.register(user,'monkey')
+app.get('/fakeUser', async (req, res) => {
+    const user = new User({ email: 'mandar.patil@vit.edu', username: 'mandar' })
+    const newUser = await User.register(user, 'monkey')
     res.send(newUser)
 })
 
 //to resposne all undefined routes
 //NOTE: should be placed last
-app.all('*',(req,res)=>{
-    throw new ExpressError(`Page not found`,404)
+app.all('*', (req, res) => {
+    throw new ExpressError(`Page not found`, 404)
 })
 
-app.use((err,req,res,next)=>{
-    const {statusCode=500} = err   //gave some default values
-    if(!err.message) err.message = "Something went wrong"
-    res.status(statusCode).render('campground/error',{err})
+//Basic error handler
+app.use((err, req, res, next) => {
+    const { statusCode = 500 } = err   //gave some default values
+    if (!err.message) err.message = "Something went wrong"
+    res.status(statusCode).render('campground/error', { err })
 })
 
 const port = process.env.PORT || '3000'
-app.listen(port,() => {
+app.listen(port, () => {
     console.log(`Connnected to Port ${port}`)
 })
 
