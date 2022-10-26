@@ -1,11 +1,10 @@
-//To seed some base db to work with
 const mongoose = require('mongoose')
-const Campground = require('../models/campground')  // .. -> go one step back and then models dir
+const Campground = require('../models/campground')  
 const cities = require('./cities')
 const { descriptors, places } = require('./seedHelper')
 
 //mongoose.connect('mongodb://localhost:27017/YelpCamp')
-mongoose.connect('mongodb+srv://Harshal:Harshal@cluster0.jamvl8i.mongodb.net/?retryWrites=true&w=majority')
+mongoose.connect('mongodb+srv://Harshal:Harshal@cluster0.jamvl8i.mongodb.net/?retryWrites=true&w=majority')  //paste your DBURL here as it is not able to acccess it directly from env file
     .then(data => console.log("Database connected"))
     .catch(err => console.log("Database connection failed"))
 
@@ -25,7 +24,7 @@ const seedDb = async () => {
                     cities[random1000].latitude
                 ]
             },
-            description: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quo veritatis facilis illo laboriosam commodi vitae voluptate quidem ullam cupiditate? Debitis ullam unde quidem quis nihil iure earum. Obcaecati, minima accusantium?',
+            description: 'Hi this is test description. hello, how are you.',
             images: [
                 {
                     url: "https://res.cloudinary.com/dadofl3n9/image/upload/v1666765509/YelpCamp/h9vxoqkca451x6xgecoy.jpg",
@@ -40,5 +39,5 @@ const seedDb = async () => {
 
 seedDb()
     .then(() => {
-        mongoose.connection.close() //close connection after using it
+        mongoose.connection.close() 
     })

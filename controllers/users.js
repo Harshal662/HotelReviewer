@@ -10,8 +10,7 @@ module.exports.createNewUser = async (req, res) => {
         const { username, email, password } = req.body
         const user = new User({ username, email })
         const registeredUser = await User.register(user, password)   //registering new user
-        // req.flash('success','Registered Successfully!')
-        // res.redirect('/campground')
+        
         req.login(registeredUser, err => {       //to login after registering
             if (err) return next(err)
             req.flash('success', 'Registered Successfully!')
@@ -32,14 +31,6 @@ module.exports.login = (req, res) => {
     req.flash('success', 'Welcome back!!')
     res.redirect(returnToUrl)
 }
-
-// module.exports.logOut = (req, res) => {
-//     req.logOut();
-   
-//     req.flash('warning', 'Sayonara!');
-//     res.redirect('/campground');
-// }
-
 
 module.exports.logOut = (req, res,next) => {
     req.logOut(function(err){
