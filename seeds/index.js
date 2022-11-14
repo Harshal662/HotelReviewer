@@ -4,7 +4,7 @@ const cities = require('./cities')
 const { descriptors, places } = require('./seedHelper')
 
 //mongoose.connect('mongodb://localhost:27017/YelpCamp')
-mongoose.connect('')  //paste your DBURL here as it is not able to acccess it directly from env file
+mongoose.connect('')  //paste your DB-URL here as it is not able to acccess it directly from env file
     .then(data => console.log("Database connected"))
     .catch(err => console.log("Database connection failed"))
 
