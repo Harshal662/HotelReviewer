@@ -2,7 +2,7 @@ This  is a TY project of WEB DEVELOPMENT made by TY CS-03
 
 This is the live website url- https://secret-citadel-28512.herokuapp.com/
 
-Vercel - https://camp-gfwzw7oz5-harshal662.vercel.app/
+Render - https://hotel-reviewer.onrender.com/campground
 
 After Downloading the Project -
 
