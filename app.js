@@ -18,10 +18,10 @@ const reviewRoutes = require('./routes/reviews')
 const userRoutes = require('./routes/users')
 const User = require('./models/users')
 const MongoStore = require('connect-mongo');
-const dbUrl = process.env.DB_URL || 'mongodb://localhost:27017/YelpCamp'
+const dbUrl = process.env.DB_URL || 'mongodb://localhost:27017/HotelReviewer'
 const secret = process.env.SECRET || 'thisIsASecretMessage'
 
-// mongoose.connect('mongodb://localhost:27017/YelpCamp')       //for local db
+// mongoose.connect('mongodb://localhost:27017/HotelReviewer')       //for local db
 mongoose.connect(dbUrl)
     .then(data => console.log("Database connected"))
     .catch(err => console.log("Database connection failed"))
@@ -111,15 +111,3 @@ app.listen(port, () => {
 })
 
 
-//Routes:
-//GET       '/'                       Home      - Home page
-//GET       '/campground'            Index     - show all campgrounds   
-//GET       '/campground/:id'        Show      - show particular campground 
-//GET       '/campground/new'        New       - form for new campground
-//POST      '/campground/new'        New       - posting new data
-//GET       '/campground/:id/edit'   Edit      - form for editing existing campground
-//PUT       '/campground/:id/edit'   Edit      - posting the changes
-//DELETE    '/campground/:id'        Delete    - deleting particular campground
-//POST      '/campground/:id/reviews'          - Add review to particular campground      
-//GET       '/register'                        - form for new user
-//POST      '/register'                        - register new user 

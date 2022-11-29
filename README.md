@@ -2,7 +2,7 @@ This  is a TY project of WEB DEVELOPMENT made by TY CS-03
 
 This is the live website url- https://secret-citadel-28512.herokuapp.com/
 
-Render - https://hotel-reviewer.onrender.com/campground
+Render - https://hotel-reviewer.onrender.com/
 
 After Downloading the Project -
 
