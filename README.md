@@ -19,4 +19,3 @@ After Downloading the Project -
 2. Run node seeds/index.js to fill in demo information in database.
 
 3. Then after doing nmp i rum nodemon app.js
-

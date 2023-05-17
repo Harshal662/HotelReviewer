@@ -80,3 +80,4 @@ module.exports.deleteCampground = async (req, res) => {
     req.flash('warning', 'Campground deleted')
     res.redirect('/campground')
 }
+
